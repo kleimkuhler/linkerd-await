@@ -13,4 +13,5 @@ jobs:
       image: docker://rust:1.37-buster
     steps:
     - uses: actions/checkout@v1
-    - run: make check-fmt check
+    - run: rustup component add clippy
+    - run: make check-fmt check lint

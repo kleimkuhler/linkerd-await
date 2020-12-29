@@ -10,7 +10,7 @@ RUSTUP ?= rustup
 CARGO ?= cargo
 CARGO_BUILD = $(CARGO) build --frozen --target=$(TARGET) $(RELEASE)
 CARGO_CHECK = $(CARGO) check --all --frozen --target=$(TARGET) $(RELEASE)
-CARGO_TEST = $(CARGO) test --all --frozen --target=$(TARGET) $(RELEASE)
+CARGO_CLIPPY = $(CARGO) clippy --all --frozen --target=$(TARGET) $(RELEASE)
 CARGO_FMT = $(CARGO) fmt --all
 
 SHASUM = shasum -a 256
@@ -45,6 +45,9 @@ check-fmt: configure-fmt
 check: configure-target fetch
 	$(CARGO_CHECK)
 
+.PHONY: lint
+lint: configure-target fetch
+	$(CARGO_CLIPPY)
 
 .PHONY: fmt
 fmt: configure-fmt
